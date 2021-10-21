@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import queryString from "query-string";
 import { useDispatch } from "react-redux";
 
-import { deckInitial, handsInitial } from "../store/gameState/reducer";
+import { deckInitial, handsInitial, p1Turn } from "../store/gameState/actions";
 let socket;
 const ENDPOINT = "http://localhost:5000";
 // const ENDPOINT = 'https://uno-online-multiplayer.herokuapp.com/'
@@ -56,6 +56,9 @@ const Game = (props) => {
       <button onClick={() => dispatch(deckInitial())}>CLICK to shuffle</button>
       <button onClick={() => dispatch(handsInitial())}>
         CLICK to get initial hands{" "}
+      </button>
+      <button onClick={() => dispatch(p1Turn())}>
+        CLICK to set turn to p1
       </button>
     </div>
   );

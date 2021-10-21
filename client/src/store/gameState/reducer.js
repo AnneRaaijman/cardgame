@@ -3,23 +3,11 @@ const initialState = {
   turnState: "initializing",
   p1Hand: [],
   p2Hand: [],
+  p1CardPlayed: undefined,
+  p2CardPlayed: undefined,
   turn: 0,
   p1Score: 0,
   p2Score: 0,
-};
-
-const turnStates = ["player_1", "player_2", "resolving", "initializing"];
-
-export const deckInitial = () => {
-  return {
-    type: "deck/initial",
-  };
-};
-
-export const handsInitial = () => {
-  return {
-    type: "hands/initial",
-  };
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -61,6 +49,15 @@ export default (state = initialState, action) => {
         p1Hand: player1hand,
         p2Hand: player2hand,
       };
+
+    case "turnState/p1Turn":
+      return {
+        ...state,
+        turnState: "player1_turn",
+      };
+
+    // case "player1/cardplayed"
+
     default:
       return state;
   }
