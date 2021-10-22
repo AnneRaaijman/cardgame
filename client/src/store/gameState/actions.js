@@ -1,17 +1,35 @@
-export const deckInitial = () => {
+export const initialize = () => {
   return {
-    type: "deck/initial",
+    type: "game/initialization",
   };
 };
 
-export const handsInitial = () => {
+export const player1draw = () => {
   return {
-    type: "hands/initial",
+    type: "player1/draw",
   };
 };
 
-export const p1Turn = () => {
+export const player1Turn = (data) => {
+  console.log("data2?", data);
+
   return {
-    type: "turnState/p1Turn",
+    type: "player1/turn",
+    payload: data,
+  };
+};
+
+export const player2draw = () => {
+  return {
+    type: "player2/draw",
+  };
+};
+
+export const player2Turn = (data) => {
+  console.log("data3?", data);
+
+  return {
+    type: "player2/turn",
+    payload: data,
   };
 };
