@@ -82,7 +82,6 @@ const GamePage = () => {
             </div>
           ))}
         </div>
-        {!p1CardSelected ? <p>player 1, pick a card</p> : null}
         <button className="P1button" onClick={endP1turn}>
           {" "}
           Finish Turn
@@ -120,6 +119,7 @@ const GamePage = () => {
             </div>
           ))}
         </div>
+        {turnState === "player2_turn" ? <p>Your turn to pick a card</p> : null}
         <button className="P2button" onClick={endP2turn}>
           {" "}
           Finish Turn{" "}
