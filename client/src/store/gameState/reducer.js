@@ -119,6 +119,14 @@ export default (state = initialState, action) => {
           endOfTurn: true,
         };
       }
+    case "turn/end":
+      return {
+        ...state,
+        p1CardPlayed: null,
+        p2CardPlayed: null,
+        turnState: "player1_turn_draw",
+      };
+
     default:
       return state;
   }

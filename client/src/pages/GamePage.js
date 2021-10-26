@@ -18,7 +18,8 @@ import {
   player2draw,
   player1Turn,
   player2Turn,
-  endTurnResolve,
+  Resolve,
+  endOfTurn,
 } from "../store/gameState/actions";
 
 const GamePage = () => {
@@ -94,8 +95,16 @@ const GamePage = () => {
   useEffect(() => {}, []);
   const startFight = () => {
     setFight(true);
-    dispatch(endTurnResolve());
+    dispatch(Resolve());
   };
+
+  function endTurn() {
+    setP1CardSelected(0);
+    setP2CardSelected(0);
+    setFight(false);
+    console.log("card?", p1CardSelected);
+    dispatch(endOfTurn());
+  }
 
   return (
     <div>
@@ -124,7 +133,8 @@ const GamePage = () => {
         </button>
       </div>
 
-      {(p1CardSelected || p1CardSelected === 0) && !fight ? (
+      {!p1CardSelected ? null : (p1CardSelected || p1CardSelected === 0) &&
+        !fight ? (
         <div className="P1face-down"></div>
       ) : !fight ? null : (
         <div className="P1card-table">
@@ -137,7 +147,8 @@ const GamePage = () => {
         </div>
       )}
 
-      {(p2CardSelected || p2CardSelected === 0) && !fight ? (
+      {!p2CardSelected ? null : (p2CardSelected || p2CardSelected === 0) &&
+        !fight ? (
         <div className="P2face-down"></div>
       ) : !fight ? null : (
         <div className="P2card-table">
@@ -178,6 +189,11 @@ const GamePage = () => {
         {gameState.p1CardPlayed && gameState.p2CardPlayed ? (
           <button className="Fightbutton" onClick={startFight}>
             Start Fight!
+          </button>
+        ) : null}
+        {gameState.endOfTurn ? (
+          <button className="Endbutton" onClick={endTurn}>
+            End turn{" "}
           </button>
         ) : null}
       </div>
