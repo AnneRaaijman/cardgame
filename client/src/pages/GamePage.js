@@ -38,6 +38,8 @@ const GamePage = () => {
   const [p1Score, setP1Score] = useState(0); //need to integrate with redux state
   const [p2Score, setP2Score] = useState(0); //need to integrate with redux state
   const [fighterImages, setFighterImages] = useState([]);
+  const [p1TableImageIndex, setp1TableImageIndex] = useState();
+  const [p2TableImageIndex, setp2TableImageIndex] = useState();
 
   const turn = useSelector(selectTurn);
   const turnState = useSelector(selectTurnState);
@@ -107,6 +109,7 @@ const GamePage = () => {
                 onClick={() => {
                   setP1CardSelected(ix);
                   setP1CardValue(card);
+                  setp1TableImageIndex(ix);
                 }}
               >
                 <div className="valueP1"> {`${card}`}</div>
@@ -126,7 +129,11 @@ const GamePage = () => {
       ) : !fight ? null : (
         <div className="P1card-table">
           <div className="valueP1"> {`${p1CardValue}`} </div>
-          <div className="card-image"></div>
+
+          <img
+            className="card-image"
+            src={fighterImages[p1TableImageIndex]}
+          ></img>
         </div>
       )}
 
@@ -135,7 +142,10 @@ const GamePage = () => {
       ) : !fight ? null : (
         <div className="P2card-table">
           <div className="valueP2"> {`${p2CardValue}`} </div>
-          <div className="card-image"></div>
+          <img
+            className="card-image"
+            src={fighterImages[p2TableImageIndex]}
+          ></img>
         </div>
       )}
 
@@ -148,6 +158,7 @@ const GamePage = () => {
               onClick={() => {
                 setP2CardSelected(ix);
                 setP2CardValue(card);
+                setp2TableImageIndex(fighterImages.length - 1 - ix);
               }}
             >
               <div className="valueP2"> {`${card}`}</div>
