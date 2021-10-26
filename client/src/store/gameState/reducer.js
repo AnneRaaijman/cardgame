@@ -4,8 +4,8 @@ const initialState = {
 
   p1Hand: [],
   p2Hand: [],
-  p1CardPlayed: 0,
-  p2CardPlayed: 0,
+  p1CardPlayed: null,
+  p2CardPlayed: null,
   turn: 0,
   p1Score: 0,
   p2Score: 0,
@@ -60,19 +60,14 @@ export default (state = initialState, action) => {
       };
 
     case "player1/turn":
-      const card_ix = action.payload.card_ix;
-      const playerId = action.payload.id;
-      if (playerId !== 1) {
-        return {
-          ...state,
-          errorMessages: "not your turn",
-        };
-      } else {
+      const p1CardSelected = action.payload;
+      {
         const handCopy = [...state.p1Hand];
-        handCopy.splice(card_ix, 1);
+        handCopy.splice(p1CardSelected, 1);
+        console.log("in reducer", p1CardSelected);
         const newState = {
           ...state,
-          p1CardPlayed: state.p1Hand[card_ix],
+          p1CardPlayed: state.p1Hand[p1CardSelected],
           turnState: "player2_turn_draw",
           p1Hand: handCopy,
         };
@@ -89,20 +84,14 @@ export default (state = initialState, action) => {
       };
 
     case "player2/turn":
-      const cardP2_ix = action.payload.cardP2_ix;
-      const player2Id = action.payload.id;
-      if (player2Id !== 2) {
-        return {
-          ...state,
-          errorMessages: "not your turn",
-        };
-      } else {
+      const p2CardSelected = action.payload;
+      {
         const handCopy = [...state.p2Hand];
-        handCopy.splice(cardP2_ix, 1);
+        handCopy.splice(p2CardSelected, 1);
         console.log("p2hand?", state.p2Hand);
         const newState = {
           ...state,
-          p2CardPlayed: state.p2Hand[cardP2_ix],
+          p2CardPlayed: state.p2Hand[p2CardSelected],
           turnState: "resolve",
           p2Hand: handCopy,
         };
@@ -115,15 +104,34 @@ export default (state = initialState, action) => {
           ...state,
           p1Score: state.p1Score + 1,
           turnState: "player1_turn_draw",
+          p1CardPlayed: null,
+          p2CardPlayed: null,
         };
-      else
+      else if (state.p2CardPlayed > state.p1CardPlayed)
         return {
           ...state,
           p2Score: state.p2Score + 1,
           turnState: "player1_turn_draw",
+          p1CardPlayed: null,
+          p2CardPlayed: null,
         };
+      else {
+        return {
+          ...state,
+          p1Score: state.p1Score + 1,
+          p2Score: state.p2Score + 1,
+          turnState: "player1_turn_draw",
+          p1CardPlayed: null,
+          p2CardPlayed: null,
+        };
+      }
 
     default:
       return state;
   }
 };
+// p1CardValue > p2CardValue
+//   ? setP1Score(p1Score + 1)
+//   : p1CardValue == p2CardValue
+//   ? setP2Score(p1Score + 1) && setP2Score(p2Score + 1)
+//   : setP2Score(p2Score + 1);

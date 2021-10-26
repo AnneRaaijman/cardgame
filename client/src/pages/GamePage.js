@@ -13,7 +13,10 @@ import {
 import {
   initialize,
   player1draw,
+  player2draw,
   player1Turn,
+  player2Turn,
+  endTurnResolve,
 } from "../store/gameState/actions";
 
 const GamePage = () => {
@@ -37,17 +40,7 @@ const GamePage = () => {
   const turnState = useSelector(selectTurnState);
   const card_ix = p1CardSelected;
 
-  console.log(turnState);
-
-  const startFight = () => {
-    setFight(true);
-
-    p1CardValue > p2CardValue
-      ? setP1Score(p1Score + 1)
-      : p1CardValue == p2CardValue
-      ? setP2Score(p1Score + 1) && setP2Score(p2Score + 1)
-      : setP2Score(p2Score + 1);
-  };
+  console.log("gamestate?", gameState);
 
   //turnStates: "initializing, player1_turn_draw, player1_turn, player2_turn_draw, player2_turn, resolve"
 
@@ -55,8 +48,21 @@ const GamePage = () => {
 
   if (turnState === "player1_turn_draw") dispatch(player1draw());
 
+  function endP1turn() {
+    dispatch(player1Turn(p1CardSelected, 1));
+  }
+
+  function endP2turn() {
+    dispatch(player2Turn(p2CardSelected, 2));
+  }
+  if (turnState === "player2_turn_draw") dispatch(player2draw());
+
   // if (turnState === "player1_turn") dispatch(player1Turn(card_ix, playerId));
 
+  const startFight = () => {
+    setFight(true);
+    dispatch(endTurnResolve());
+  };
   console.log(fight);
 
   return (
@@ -76,10 +82,14 @@ const GamePage = () => {
             </div>
           ))}
         </div>
-        <button className="P1button"> Finish the Turn</button>
+        {!p1CardSelected ? <p>player 1, pick a card</p> : null}
+        <button className="P1button" onClick={endP1turn}>
+          {" "}
+          Finish Turn
+        </button>
       </div>
 
-      {p1CardSelected && !fight ? (
+      {(p1CardSelected || p1CardSelected === 0) && !fight ? (
         <div className="P1face-down"></div>
       ) : !fight ? null : (
         <div className="P1card-table">
@@ -87,7 +97,7 @@ const GamePage = () => {
         </div>
       )}
 
-      {p2CardSelected && !fight ? (
+      {(p2CardSelected || p2CardSelected === 0) && !fight ? (
         <div className="P2face-down"></div>
       ) : !fight ? null : (
         <div className="P2card-table">
@@ -110,17 +120,22 @@ const GamePage = () => {
             </div>
           ))}
         </div>
-        <button className="P2button" onClick={startFight}>
+        <button className="P2button" onClick={endP2turn}>
           {" "}
-          Finish the Turn{" "}
+          Finish Turn{" "}
         </button>
+        {gameState.p1CardPlayed && gameState.p2CardPlayed ? (
+          <button className="Fightbutton" onClick={startFight}>
+            Start Fight!
+          </button>
+        ) : null}
       </div>
       <div className="score">
         <h2 className="points">Points</h2>
         <h2 className="P1title">Player 1</h2>
         <h2 className="P2title">Player 2</h2>
-        <h2 className="P1score">{`${p1Score}`}</h2>
-        <h2 className="P2score">{`${p2Score}`}</h2>
+        <h2 className="P1score">{`${gameState.p1Score}`}</h2>
+        <h2 className="P2score">{`${gameState.p2Score}`}</h2>
         <h2 className="x">VS</h2>
       </div>
     </div>
