@@ -9,6 +9,7 @@ import {
   player2draw,
   player1Turn,
   player2Turn,
+  endTurnResolve,
 } from "../store/gameState/actions";
 
 let socket;
@@ -70,6 +71,8 @@ const Game = (props) => {
       <button onClick={() => dispatch(player2Turn({ cardP2_ix: 0, id: 2 }))}>
         p2 playcard
       </button>
+      <button onClick={() => dispatch(endTurnResolve())}>end turn </button>
+
       <div>
         <div>
           <p>Deck</p>

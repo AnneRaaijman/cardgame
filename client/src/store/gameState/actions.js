@@ -26,10 +26,14 @@ export const player2draw = () => {
 };
 
 export const player2Turn = (data) => {
-  console.log("data3?", data);
-
   return {
     type: "player2/turn",
     payload: data,
+  };
+};
+
+export const endTurnResolve = () => {
+  return {
+    type: "resolve/result",
   };
 };
