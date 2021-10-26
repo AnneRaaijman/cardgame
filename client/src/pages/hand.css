@@ -1,0 +1,280 @@
+h2 {
+  font-family: roboto-regular;
+}
+
+body {
+  background-color: #176117;
+  font-family: "Nova Flat", cursive;
+}
+
+p {
+  text-align: center;
+  color: white;
+}
+
+h2 {
+  color: white;
+  text-align: center;
+}
+
+.info {
+  float: left;
+  margin-left: -120px;
+  font-size: 50px;
+  float: centers;
+}
+
+.P1button {
+  font-family: "Carter One", sans-serif;
+  font-size: 30px;
+  color: white;
+  background-color: #ff4c4c;
+  border-radius: 25px;
+  border: 3px solid;
+  border-bottom: 10px solid;
+  border-color: #992d2d;
+
+  position: fixed;
+  bottom: 50px;
+  right: 5%;
+
+  transition: 0.5s transform;
+}
+.P2button {
+  font-family: "Carter One", sans-serif;
+  font-size: 30px;
+  color: white;
+  background-color: #ff4c4c;
+  border-radius: 25px;
+  border: 3px solid;
+  border-bottom: 10px solid;
+  border-color: #992d2d;
+  position: fixed;
+  top: 50px;
+  left: 5%;
+  transform: rotate(180deg);
+}
+
+.handP1 {
+  position: fixed;
+  bottom: -150px;
+  left: 35%;
+}
+
+.handP2 {
+  position: fixed;
+  top: -150px;
+  left: 35%;
+  transform: rotate(180deg);
+}
+
+.card {
+  height: 300px;
+  width: 220px;
+  border: 3px solid black;
+  background-color: white;
+  border-radius: 15px;
+  float: left;
+  margin-left: -120px;
+  font-size: 50px;
+  transform: rotate(15deg);
+  transition: 0.5s transform;
+}
+
+.P1card-table {
+  height: 330px;
+  width: 242px;
+  border: 3px solid black;
+  background-color: white;
+  border-radius: 15px;
+  font-size: 50px;
+  transition: 0.5s transform;
+  position: fixed;
+  top: 30%;
+  left: 30%;
+  z-index: -1;
+}
+
+.P2card-table {
+  height: 330px;
+  width: 242px;
+  border: 3px solid black;
+  background-color: white;
+  border-radius: 15px;
+  font-size: 50px;
+  transition: 0.5s transform;
+  position: fixed;
+  top: 30%;
+  right: 30%;
+  transform: rotate(180deg);
+  z-index: -1;
+}
+
+.card-selected {
+  height: 300px;
+  width: 220px;
+  border: 5px solid #ff4c4c;
+  background-color: white;
+  border-radius: 15px;
+  float: left;
+  margin-left: -120px;
+  font-size: 50px;
+  transform: rotate(15deg);
+  transition: 0.5s transform;
+}
+
+.card:hover {
+  position: relative;
+  z-index: 1;
+  transform: translateY(-250px) scale(1.2) rotate(0deg);
+}
+
+.valueP1 {
+  position: relative;
+  left: 15px;
+}
+
+.valueP2 {
+  position: relative;
+  left: 10px;
+}
+
+.P2face-down {
+  height: 330px;
+  width: 242px;
+  border: 3px solid black;
+  background-color: #ff4c4c;
+  border-radius: 15px;
+  font-size: 50px;
+  transition: 0.5s transform;
+  position: fixed;
+  top: 30%;
+  right: 30%;
+  transform: rotate(180deg);
+  z-index: -1;
+  background-image: url("../images/RockStar.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.P1face-down {
+  height: 330px;
+  width: 242px;
+  border: 3px solid black;
+  background-color: #ff4c4c;
+  border-radius: 15px;
+  font-size: 50px;
+  transition: 0.5s transform;
+  position: fixed;
+  top: 30%;
+  left: 30%;
+  z-index: -1;
+  background-image: url("../images/RockStar.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.P1button:active {
+  transform: translateY(10px);
+  border-bottom: 3px solid #992d2d;
+}
+
+.P2button:active {
+  transform: translateY(10px) rotate(180deg);
+  border-bottom: 3px solid #992d2d;
+}
+
+.score {
+  height: 420px;
+  width: 320px;
+  border-radius: 15px;
+  font-size: 50px;
+  transition: 0.5s transform;
+  position: fixed;
+  top: 20%;
+  left: 1%;
+  z-index: -1;
+  background-image: url("../images/paper.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.point {
+  height: 200px;
+  width: 300px;
+  border: 3px solid white;
+  background-color: #ff4c4c;
+  border-radius: 15px;
+  font-size: 50px;
+  transition: 0.5s transform;
+  position: fixed;
+  top: 30%;
+  left: 2%;
+  z-index: -1;
+}
+
+.points {
+  font-family: "Hand", fantasy;
+  font-size: 40px;
+  color: rgb(73, 73, 73);
+  position: fixed;
+  top: 50px;
+  top: 24%;
+  left: 10%;
+  transform: rotate(-6deg);
+}
+
+.P1title {
+  font-family: "Hand", fantasy;
+  font-size: 30px;
+  color: rgb(73, 73, 73);
+  position: fixed;
+  top: 50px;
+  top: 33%;
+  left: 2%;
+  transform: rotate(-6deg);
+}
+.P2title {
+  font-family: "Hand", fantasy;
+  font-size: 30px;
+  color: rgb(73, 73, 73);
+  position: fixed;
+  top: 50px;
+  top: 48%;
+  left: 12%;
+  transform: rotate(15deg);
+}
+
+.P1score {
+  font-family: "Hand", fantasy;
+  font-size: 70px;
+  color: rgb(73, 73, 73);
+  position: fixed;
+  top: 50px;
+  top: 35%;
+  left: 15%;
+  transform: rotate(15deg);
+}
+
+.P2score {
+  font-family: "Hand", fantasy;
+  font-size: 80px;
+  color: rgb(73, 73, 73);
+  position: fixed;
+  top: 50px;
+  top: 50%;
+  left: 12%;
+  transform: rotate(15deg);
+}
+
+.x {
+  font-family: "Hand";
+  font-size: 60px;
+  color: #ff4c4c;
+  position: fixed;
+  top: 50px;
+  top: 40%;
+  left: 2%;
+  transform: rotate(15deg);
+}
