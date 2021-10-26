@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./hand.css";
+import "./game.css";
+import fighter from "../images/Fighters/1.jpeg";
+import { fighters } from "../images/Fighters/fighters";
 
 import {
   selectP1Hand,
@@ -32,12 +34,41 @@ const GamePage = () => {
   const [fight, setFight] = useState(false);
   const [p1Score, setP1Score] = useState(0); //need to integrate with redux state
   const [p2Score, setP2Score] = useState(0); //need to integrate with redux state
+  const [fighterImages, setFighterImages] = useState([]);
 
   const turn = useSelector(selectTurn);
   const turnState = useSelector(selectTurnState);
   const card_ix = p1CardSelected;
 
+  let x = 0;
+  const imgIndex = x++;
+
   console.log(turnState);
+
+  useEffect(() => {
+    const randomized = shuffle(fighters);
+    setFighterImages(randomized);
+  }, []);
+
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
 
   const startFight = () => {
     setFight(true);
@@ -63,18 +94,21 @@ const GamePage = () => {
     <div>
       <div>
         <div className="handP1">
-          {p1Hand.map((card, ix) => (
-            <div
-              className={ix === p1CardSelected ? "card-selected" : "card"}
-              value={card}
-              onClick={() => {
-                setP1CardSelected(ix);
-                setP1CardValue(card);
-              }}
-            >
-              <div className="valueP1"> {`${card}`}</div>
-            </div>
-          ))}
+          {p1Hand.map((card, ix) => {
+            return (
+              <div
+                className={ix === p1CardSelected ? "card-selected" : "card"}
+                value={card}
+                onClick={() => {
+                  setP1CardSelected(ix);
+                  setP1CardValue(card);
+                }}
+              >
+                <div className="valueP1"> {`${card}`}</div>
+                <img className="card-image" src={fighterImages[ix]}></img>
+              </div>
+            );
+          })}
         </div>
         <button className="P1button"> Finish the Turn</button>
       </div>
@@ -84,6 +118,7 @@ const GamePage = () => {
       ) : !fight ? null : (
         <div className="P1card-table">
           <div className="valueP1"> {`${p1CardValue}`} </div>
+          <div className="card-image"></div>
         </div>
       )}
 
@@ -92,6 +127,7 @@ const GamePage = () => {
       ) : !fight ? null : (
         <div className="P2card-table">
           <div className="valueP2"> {`${p2CardValue}`} </div>
+          <div className="card-image"></div>
         </div>
       )}
 
@@ -107,6 +143,11 @@ const GamePage = () => {
               }}
             >
               <div className="valueP2"> {`${card}`}</div>
+              <img
+                className="card-image"
+                alt="figthers"
+                src={fighterImages[fighterImages.length - 1 - ix]}
+              ></img>
             </div>
           ))}
         </div>
