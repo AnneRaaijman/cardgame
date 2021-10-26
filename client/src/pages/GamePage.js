@@ -89,12 +89,11 @@ const GamePage = () => {
   if (turnState === "player2_turn_draw") dispatch(player2draw());
 
   // if (turnState === "player1_turn") dispatch(player1Turn(card_ix, playerId));
-
+  useEffect(() => {}, []);
   const startFight = () => {
     setFight(true);
     dispatch(endTurnResolve());
   };
-  console.log(fight);
 
   return (
     <div>
