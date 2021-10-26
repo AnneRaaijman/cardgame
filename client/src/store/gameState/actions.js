@@ -32,8 +32,13 @@ export const player2Turn = (data) => {
   };
 };
 
-export const endTurnResolve = () => {
+export const Resolve = () => {
   return {
     type: "resolve/result",
+  };
+};
+export const endOfTurn = () => {
+  return {
+    type: "turn/end",
   };
 };

@@ -9,7 +9,7 @@ const initialState = {
   turn: 0,
   p1Score: 0,
   p2Score: 0,
-  errorMessages: [],
+  endOfTurn: false,
 };
 
 //turnStates: "initializing, player1_turn_draw, player1_turn, player2_turn_draw, player2_turn, resolve"
@@ -103,35 +103,31 @@ export default (state = initialState, action) => {
         return {
           ...state,
           p1Score: state.p1Score + 1,
-          turnState: "player1_turn_draw",
-          p1CardPlayed: null,
-          p2CardPlayed: null,
+          endOfTurn: true,
         };
       else if (state.p2CardPlayed > state.p1CardPlayed)
         return {
           ...state,
           p2Score: state.p2Score + 1,
-          turnState: "player1_turn_draw",
-          p1CardPlayed: null,
-          p2CardPlayed: null,
+          endOfTurn: true,
         };
       else {
         return {
           ...state,
           p1Score: state.p1Score + 1,
           p2Score: state.p2Score + 1,
-          turnState: "player1_turn_draw",
-          p1CardPlayed: null,
-          p2CardPlayed: null,
+          endOfTurn: true,
         };
       }
+    case "turn/end":
+      return {
+        ...state,
+        p1CardPlayed: null,
+        p2CardPlayed: null,
+        turnState: "player1_turn_draw",
+      };
 
     default:
       return state;
   }
 };
-// p1CardValue > p2CardValue
-//   ? setP1Score(p1Score + 1)
-//   : p1CardValue == p2CardValue
-//   ? setP2Score(p1Score + 1) && setP2Score(p2Score + 1)
-//   : setP2Score(p2Score + 1);

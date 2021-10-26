@@ -18,7 +18,8 @@ import {
   player2draw,
   player1Turn,
   player2Turn,
-  endTurnResolve,
+  Resolve,
+  endOfTurn,
 } from "../store/gameState/actions";
 
 const GamePage = () => {
@@ -91,12 +92,19 @@ const GamePage = () => {
   if (turnState === "player2_turn_draw") dispatch(player2draw());
 
   // if (turnState === "player1_turn") dispatch(player1Turn(card_ix, playerId));
-
+  useEffect(() => {}, []);
   const startFight = () => {
     setFight(true);
-    dispatch(endTurnResolve());
+    dispatch(Resolve());
   };
-  console.log(fight);
+
+  function endTurn() {
+    setP1CardSelected(0);
+    setP2CardSelected(0);
+    setFight(false);
+    console.log("card?", p1CardSelected);
+    dispatch(endOfTurn());
+  }
 
   return (
     <div>
@@ -119,14 +127,14 @@ const GamePage = () => {
             );
           })}
         </div>
-        {!p1CardSelected ? <p>player 1, pick a card</p> : null}
         <button className="P1button" onClick={endP1turn}>
           {" "}
           Finish Turn
         </button>
       </div>
 
-      {(p1CardSelected || p1CardSelected === 0) && !fight ? (
+      {!p1CardSelected ? null : (p1CardSelected || p1CardSelected === 0) &&
+        !fight ? (
         <div className="P1face-down"></div>
       ) : !fight ? null : (
         <div className="P1card-table">
@@ -139,7 +147,8 @@ const GamePage = () => {
         </div>
       )}
 
-      {(p2CardSelected || p2CardSelected === 0) && !fight ? (
+      {!p2CardSelected ? null : (p2CardSelected || p2CardSelected === 0) &&
+        !fight ? (
         <div className="P2face-down"></div>
       ) : !fight ? null : (
         <div className="P2card-table">
@@ -172,6 +181,7 @@ const GamePage = () => {
             </div>
           ))}
         </div>
+        {turnState === "player2_turn" ? <p>Your turn to pick a card</p> : null}
         <button className="P2button" onClick={endP2turn}>
           {" "}
           Finish Turn{" "}
@@ -179,6 +189,11 @@ const GamePage = () => {
         {gameState.p1CardPlayed && gameState.p2CardPlayed ? (
           <button className="Fightbutton" onClick={startFight}>
             Start Fight!
+          </button>
+        ) : null}
+        {gameState.endOfTurn ? (
+          <button className="Endbutton" onClick={endTurn}>
+            End turn{" "}
           </button>
         ) : null}
       </div>
