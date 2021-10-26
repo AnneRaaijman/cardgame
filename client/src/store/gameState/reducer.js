@@ -114,6 +114,13 @@ export default (state = initialState, action) => {
         return {
           ...state,
           p1Score: state.p1Score + 1,
+          turnState: "player1_turn_draw",
+        };
+      else
+        return {
+          ...state,
+          p2Score: state.p2Score + 1,
+          turnState: "player1_turn_draw",
         };
 
     default:
